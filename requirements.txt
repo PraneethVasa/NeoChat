@@ -6,4 +6,4 @@ gtts
 pillow
 speechrecognition
 requests
-PyAudio
+
