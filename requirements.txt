@@ -4,6 +4,7 @@ translate
 google-generativeai
 gtts
 pillow
+portaudio
 PyAudio
 speechrecognition
 requests
