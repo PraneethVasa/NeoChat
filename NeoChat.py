@@ -8,11 +8,16 @@ import speech_recognition as sr
 import requests
 from PIL import Image
 import io
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from .env file
+load_dotenv()
 
+# Use the environment variables
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-HUGGING_FACE_TOKEN = "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"
-GENAI_API_KEY = "AIzaSyDxDNHgDvvmmPYBsT26RI41yBWGQAf6SnI"
+HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
+GENAI_API_KEY = os.getenv("GENAI_API_KEY")
 # Function to query Stable Diffusion API
 def query_stabilitydiff(payload, headers):
     response = requests.post(API_URL, headers=headers, json=payload)
