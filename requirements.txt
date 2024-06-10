@@ -4,5 +4,6 @@ translate
 google-generativeai
 gtts
 pillow
+PyAudio
 speechrecognition
 requests
