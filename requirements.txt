@@ -1,7 +1,8 @@
 streamlit
+python-dotenv
 translate
 google-generativeai
 gtts
-speechrecognition
 pillow
+speechrecognition
 requests
