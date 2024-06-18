@@ -16,7 +16,7 @@ load_dotenv()
 
 # Use the environment variables
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
+HUGGING_FACE_TOKEN = "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"
 GENAI_API_KEY = os.getenv("GENAI_API_KEY")
 # Function to query Stable Diffusion API
 def query_stabilitydiff(payload, headers):
