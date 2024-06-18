@@ -24,7 +24,7 @@ def query_stabilitydiff(payload, headers):
     return response.content
 
 # Configure the Gemini AI with the provided API key
-genai.configure(api_key=GENAI_API_KEY)
+genai.configure(api_key="AIzaSyDxDNHgDvvmmPYBsT26RI41yBWGQAf6SnI")
 
 # Initialize the Gemini AI model
 model = genai.GenerativeModel('gemini-1.5-flash')
