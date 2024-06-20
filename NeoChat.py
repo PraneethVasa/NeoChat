@@ -207,7 +207,7 @@ for message in st.session_state.messages:
 # Handle new user input
 prompt = st.chat_input("What is up?")
 if st.button("Speak 🎙"):
-    prompt = recognize_speech(device_index=1)  # Change device_index as needed
+    prompt = recognize_speech(device_index=2)  # Change device_index as needed
 
 if prompt:
     if prompt[0] == '!' or prompt[0:8] == 'generate':
