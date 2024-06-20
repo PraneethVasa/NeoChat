@@ -9,7 +9,6 @@ import requests
 from PIL import Image
 import io
 from dotenv import load_dotenv
-import os
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,13 +17,14 @@ load_dotenv()
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
 HUGGING_FACE_TOKEN = "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"
 GENAI_API_KEY = os.getenv("GENAI_API_KEY")
+
 # Function to query Stable Diffusion API
 def query_stabilitydiff(payload, headers):
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.content
 
 # Configure the Gemini AI with the provided API key
-genai.configure(api_key="AIzaSyDxDNHgDvvmmPYBsT26RI41yBWGQAf6SnI")
+genai.configure(api_key=GENAI_API_KEY)
 
 # Initialize the Gemini AI model
 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -51,13 +51,13 @@ def text_to_speech(text, lang='en'):
     audio_b64 = base64.b64encode(audio_bytes).decode()
     audio_file.close()
     os.remove("response.mp3")
-    
+
     return f'<audio controls autoplay><source src="data:audio/mp3;base64,{audio_b64}" type="audio/mp3"></audio>'
 
 # Function to recognize speech input
-def recognize_speech():
+def recognize_speech(device_index=None):
     recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone(device_index=device_index) as source:
         st.info("Listening...")
         audio = recognizer.listen(source)
         try:
@@ -66,8 +66,8 @@ def recognize_speech():
             return text
         except sr.UnknownValueError:
             st.error("Sorry, I did not understand that.")
-        except sr.RequestError:
-            st.error("Sorry, there was an issue with the speech recognition service.")
+        except sr.RequestError as e:
+            st.error(f"Sorry, there was an issue with the speech recognition service: {e}")
     return ""
 
 # Map language to ISO 639-1 code
@@ -207,7 +207,7 @@ for message in st.session_state.messages:
 # Handle new user input
 prompt = st.chat_input("What is up?")
 if st.button("Speak 🎙"):
-    prompt = recognize_speech()
+    prompt = recognize_speech(device_index=1)  # Change device_index as needed
 
 if prompt:
     if prompt[0] == '!' or prompt[0:8] == 'generate':
@@ -249,5 +249,4 @@ if prompt:
 # Add a "Hear response" button to play the response
 if st.session_state.response_text and not st.session_state.is_image_response:
     if st.button("Hear response🔊"):
-            st.markdown(text_to_speech(translate_text(st.session_state.response_text[:400], dest_language)), unsafe_allow_html=True)
-   
+        st.markdown(text_to_speech(translate_text(st.session_state.response_text[:400], dest_language)), unsafe_allow_html=True)
