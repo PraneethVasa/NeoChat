@@ -1,3 +1,4 @@
+PyAudio
 streamlit
 python-dotenv
 translate
